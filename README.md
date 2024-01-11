@@ -1,5 +1,45 @@
 # vuejs-image-zoom
 
+<br/>
+
+## Administrator Manual
+
+### Npm Registration Command
+
+```
+npm run build
+npm link
+npm link vuejs-image-zoom
+
+npm login
+npm publish --access=public
+```
+
+### Test the built files locally
+
+#### build project (path: ~/Desktop/vuejs-image-zoom-package)
+
+```
+npm run build
+```
+
+#### test project (path: ~/Desktop/vuejs-image-zoom-test)
+
+```
+<VuejsImageZoom :src="src" />
+
+...
+
+import { VuejsImageZoom } from "../../vuejs-image-zoom-package/dist/vuejs-image-zoom.es";
+export default {
+  components: { VuejsImageZoom },
+};
+```
+
+<br/>
+
+## User Manual
+
 ### Install the package
 
 ```
@@ -20,6 +60,12 @@ export default {
 };
 </script>
 ```
+
+### Props
+
+- src : { type: String, default: "" }
+- width : { type: String, default: "100%" }
+- height : { type: String, default: "100%" }
 
 ### Usage Example
 
