@@ -21,6 +21,12 @@ export default {
 </script>
 ```
 
+### Props
+
+- src : { type: String, default: "" }
+- width : { type: String, default: "100%" }
+- height : { type: String, default: "100%" }
+
 ### Usage Example
 
 ```
