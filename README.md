@@ -26,6 +26,10 @@ export default {
 - src : { type: String, default: "" }
 - width : { type: String, default: "100%" }
 - height : { type: String, default: "100%" }
+- enableButton: { type: Boolean, default: true }
+- @onZoomIn
+- @onZoomOut
+- @onZoomReset
 
 ### Usage Example
 
@@ -36,6 +40,7 @@ export default {
       <button @click="onChangeImg(1)">IMG 1</button>
       <button @click="onChangeImg(2)">IMG 2</button>
       <button @click="onChangeImg(2)">IMG 3</button>
+      <button @click="changeEnableButton()">enableButton</button>
     </div>
     <br />
     <div
@@ -48,8 +53,12 @@ export default {
         overflow: hidden;
       "
     >
-      <VuejsImageZoom :src="imgSrc" />
+      <VuejsImageZoom ref="imgCanvas" :src="imgSrc" :enable-button="enableButton" />
     </div>
+    <button v-if="!enableButton" @click="onClickZoom('in')">+</button>
+    <button v-if="!enableButton" @click="onClickZoom('out')">-</button>
+    <button v-if="!enableButton" @click="onClickZoom('reset')">reset</button>
+
   </div>
 </template>
 
@@ -65,6 +74,7 @@ export default {
   components: { VuejsImageZoom },
   data() {
     return {
+      enableButton: true,
       imgSrc: imgs["1"],
     };
   },
@@ -72,6 +82,19 @@ export default {
     onChangeImg(num) {
       this.imgSrc = imgs[num];
     },
+    onClickZoom(val) {
+      const zoom = this.$refs.imgCanvas;
+      if (val === "in") {
+        zoom.onZoomIn();
+      } else if (val === "out") {
+        zoom.onZoomOut();
+      } else if (val === "reset") {
+        zoom.onZoomReset();
+      }
+    },
+    changeEnableButton(){
+      this.enableButton = !this.enableButton
+    }
   },
 };
 </script>
