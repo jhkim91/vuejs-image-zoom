@@ -1,0 +1,38 @@
+{
+  "name": "vuejs-image-zoom",
+  "version": "0.0.2",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "private": false,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "main": "./dist/vuejs-image-zoom.umd.js",
+  "module": "./dist.vuejs-image-zoom.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vuejs-image-zoom.es.js",
+      "require": "./dist/vuejs-image-zoom.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "prettier": "^3.0.3",
+    "vite": "^4.4.9"
+  }
+}
