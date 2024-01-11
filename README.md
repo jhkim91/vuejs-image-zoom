@@ -35,6 +35,7 @@ export default {
     <div style="display: flex; gap: 10px; margin: 10px 0 0 20px">
       <button @click="onChangeImg(1)">IMG 1</button>
       <button @click="onChangeImg(2)">IMG 2</button>
+      <button @click="onChangeImg(2)">IMG 3</button>
     </div>
     <br />
     <div
@@ -54,9 +55,11 @@ export default {
 
 <script>
 import { VuejsImageZoom } from "vuejs-image-zoom";
+import IMG1 from "@/assets/20240111.jpg";
 const imgs = {
-  1: "https://th.bing.com/th/id/OIG.l4zSBOrvP_1FquYSRwyw?pid=ImgGn",
-  2: "https://th.bing.com/th/id/OIG.PleGemfkpxw4enZbAZd7?pid=ImgGn",
+  1: IMG1,
+  2: "https://th.bing.com/th/id/OIG.l4zSBOrvP_1FquYSRwyw?pid=ImgGn",
+  3: "https://th.bing.com/th/id/OIG.PleGemfkpxw4enZbAZd7?pid=ImgGn",
 };
 export default {
   components: { VuejsImageZoom },
