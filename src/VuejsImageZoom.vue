@@ -10,13 +10,13 @@
     @mouseleave="handleMouseUp"
   >
     <canvas :id="canvasId"></canvas>
-    <button class="image-zoom-icon" @click="onZoomIn()">
+    <button v-show="isShowZoomBtn" @click="onZoomIn()">
       <img :src="ZoomIn" />
     </button>
-    <button class="image-zoom-icon" @click="onZoomOut()">
+    <button v-show="isShowZoomBtn" @click="onZoomOut()">
       <img :src="ZoomOut" />
     </button>
-    <button class="image-zoom-icon" @click="onZoomReset()">
+    <button v-show="isShowZoomBtn" @click="onZoomReset()">
       <img :src="ZoomReset" />
     </button>
   </div>
@@ -35,6 +35,7 @@ export default {
     width: { type: String, default: "100%" },
     height: { type: String, default: "100%" },
     enableButton: { type: Boolean, default: true },
+    isCtrlPressed: { type: Boolean, default: true }
   },
   watch: {
     src: {
@@ -60,7 +61,7 @@ export default {
       if (canvasContainerEl) {
         const buttons = canvasContainerEl.getElementsByTagName("button");
         Array.from(buttons).forEach((button) => {
-          button.style.display = isEnableButton ? "block" : "none";
+          button.style.display = this.isShowZoomBtn && isEnableButton ? "block" : "none"
         });
       }
     },
@@ -87,6 +88,7 @@ export default {
       originalWidth: 0,
       originalHeight: 0,
       existingScale: 0,
+      isShowZoomBtn: false
     };
   },
   methods: {
@@ -105,12 +107,16 @@ export default {
         this.image = new Image();
         this.image.src = this.src;
         this.image.onload = () => {
+          this.isShowZoomBtn = true;
           this.originalWidth = this.image.width;
           this.originalHeight = this.image.height;
           this.fitImageIntoCanvas();
           this.adjustOffset();
           this.drawImage();
         };
+        this.image.onerror = () => {
+          this.isShowZoomBtn = false;
+        }
       } else {
         const { width, height } = entry.contentRect;
         const canvas = document.querySelector(`#${this.canvasId}`);
@@ -131,7 +137,7 @@ export default {
         Array.from(buttons).forEach((button, i) => {
           const btnLeft =
             this.canvasWidth / 2 - (buttons.length * 55) / 2 + i * 55;
-          button.style.display = this.enableButton ? "block" : "none";
+          button.style.display = this.isShowZoomBtn && this.enableButton ? "block" : "none";
           button.style.width = "40px";
           button.style.height = "40px";
           button.style.position = "absolute";
@@ -212,6 +218,8 @@ export default {
       );
     },
     handleZoom(event) {
+      if (this.isCtrlPressed && !event.ctrlKey) return;
+
       event.preventDefault();
       const canvas = document.querySelector(`#${this.canvasId}`);
       const rect = canvas.getBoundingClientRect();

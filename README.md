@@ -27,6 +27,7 @@ export default {
 - width : { type: String, default: "100%" }
 - height : { type: String, default: "100%" }
 - enableButton: { type: Boolean, default: true }
+- isCtrlPressed: { type: Boolean, default: true }
 - @onZoomIn
 - @onZoomOut
 - @onZoomReset
